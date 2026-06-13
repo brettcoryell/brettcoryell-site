@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Brett Coryell</title>
+<style>
+  /* ── Site Design System v1.0 ───────────────────────────── */
+  :root {
+    --site-sky:        #7a9cb8;
+    --site-sky-deep:   #5b7d99;
+    --site-sky-pale:   #dce8f0;
+    --site-ink:        #1a2332;
+    --site-dusk:       #4a5568;
+    --site-mist:       #8a9ab5;
+    --site-fog:        #e8edf3;
+    --site-cloud:      #f5f7fa;
+    --site-page:       #ffffff;
+    --site-warm:       #c4956a;
+
+    --site-txt:          var(--site-ink);
+    --site-txt-secondary:var(--site-dusk);
+    --site-txt-faint:    var(--site-mist);
+    --site-border:       var(--site-fog);
+    --site-accent:       var(--site-sky);
+    --site-accent-hover: var(--site-sky-deep);
+    --site-bg:           var(--site-page);
+    --site-bg-alt:       var(--site-cloud);
+    --site-ariel-border: var(--site-sky-deep);
+    --site-ariel-bg:     var(--site-sky-pale);
+
+    --space-xs: 0.5rem;
+    --space-sm: 1rem;
+    --space-md: 2rem;
+    --space-lg: 4rem;
+    --space-xl: 5rem;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    background: var(--site-bg);
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', system-ui, sans-serif;
+    color: var(--site-txt);
+  }
+
+  /* ── NAV ──────────────────────────────────────────────── */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    padding: 18px 64px;
+    display: flex; align-items: center; justify-content: space-between;
+    transition: background 0.25s ease, box-shadow 0.25s ease, backdrop-filter 0.25s ease;
+  }
+  .nav.scrolled {
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 1px 0 var(--site-fog);
+  }
+  .nav-name {
+    font-size: 0.9rem; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--site-sky);
+    text-decoration: none;
+  }
+  .nav-links {
+    display: flex; gap: 36px;
+    font-size: 0.875rem; font-weight: 500; color: rgba(255,255,255,0.85);
+  }
+  .nav.scrolled .nav-links { color: var(--site-ink); }
+  .nav-links a {
+    color: inherit; text-decoration: none;
+    transition: color 0.15s ease;
+  }
+  .nav-links a:hover { color: var(--site-sky); }
+
+  /* ── HERO ─────────────────────────────────────────────── */
+  .hero {
+    position: relative; width: 100%; height: 100vh;
+    min-height: 560px; overflow: hidden;
+  }
+  .hero img {
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: center bottom; display: block;
+  }
+  .hero-content {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 0 clamp(2rem,5vw,6rem);
+    max-width: 760px;
+  }
+  .tagline-block { display: flex; flex-direction: column; gap: 0; }
+  .tagline-block p {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    font-style: italic;
+    font-size: clamp(1.4rem, 2.5vw, 1.875rem);
+    line-height: 1.55;
+    color: #ffffff;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.45);
+    font-weight: 400;
+    white-space: nowrap;
+    opacity: 0;
+    animation: drift 1.6s ease both;
+  }
+  .tagline-block p:nth-child(1) { animation-delay: 0.5s; }
+  .tagline-block p:nth-child(2) { animation-delay: 0.85s; }
+  .tagline-block p:nth-child(3) { animation-delay: 1.15s; }
+  .tagline-block p:nth-child(4) { animation-delay: 1.45s; filter: brightness(0.82); }
+
+  @keyframes drift {
+    0%   { opacity: 0; transform: translateY(18px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Photo credit — bottom-right of hero */
+  .photo-credit {
+    position: absolute; bottom: 16px; right: 24px;
+    font-size: 0.7rem; color: rgba(255,255,255,0.6);
+    letter-spacing: 0.04em;
+  }
+  .photo-credit a { color: inherit; text-decoration: none; }
+  .photo-credit a:hover { color: var(--site-sky); }
+
+  /* ── ARIEL BAND ───────────────────────────────────────── */
+  .ariel-band {
+    background: var(--site-ariel-bg);
+    border-left: 6px solid var(--site-ariel-border);
+    padding: 20px 64px;
+  }
+  .ariel-band-inner {
+    max-width: 960px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .ariel-text {
+    font-size: 0.9375rem;
+    color: var(--site-ink);
+    font-style: italic;
+  }
+  .ariel-cta {
+    font-size: 0.875rem; font-weight: 500; letter-spacing: 0.03em;
+    color: #fff; background: var(--site-sky);
+    padding: 0.5rem 1.25rem;
+    border-radius: 4px;
+    cursor: pointer; border: none;
+    white-space: nowrap;
+    transition: background-color 0.15s ease;
+    text-decoration: none; display: inline-block;
+  }
+  .ariel-cta:hover { background: var(--site-sky-deep); }
+  .ariel-cta:focus { outline: 2px solid var(--site-sky); outline-offset: 2px; }
+
+  /* ── CONTENT SECTIONS ────────────────────────────────── */
+  .section-wrap {
+    max-width: 900px; margin: 0 auto; padding: var(--space-xl) var(--space-md);
+  }
+  .section-bg-alt { background: var(--site-bg-alt); }
+
+  .section-label {
+    font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--site-dusk); font-weight: 600;
+    margin-bottom: var(--space-md);
+  }
+
+  /* ── WRITING SECTION ─────────────────────────────────── */
+  #writing { background: var(--site-bg); }
+
+  .writing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 2rem;
+  }
+  .writing-card {
+    border-top: 1px solid var(--site-fog);
+    padding-top: 1rem;
+  }
+  .writing-card-date {
+    font-size: 0.8rem; color: var(--site-mist);
+    font-variant-numeric: tabular-nums; margin-bottom: 0.5rem;
+  }
+  .writing-card-title {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    font-style: italic; font-size: 1.1rem; font-weight: 400;
+    color: var(--site-ink); line-height: 1.45;
+    margin-bottom: 0.5rem;
+  }
+  .writing-card-desc {
+    font-size: 0.9rem; color: var(--site-dusk); line-height: 1.6;
+    margin-bottom: 0.75rem;
+  }
+  .read-link {
+    font-size: 0.875rem; color: var(--site-sky); font-weight: 500;
+    text-decoration: none;
+  }
+  .read-link:hover { color: var(--site-sky-deep); }
+
+  /* ── PROJECTS SECTION ────────────────────────────────── */
+  #projects { background: var(--site-bg-alt); }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .project-card {
+    background: var(--site-page);
+    border: 1px solid var(--site-fog);
+    padding: 1.5rem;
+    text-decoration: none;
+    display: block;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .project-card:hover {
+    border-color: var(--site-sky);
+    box-shadow: 0 2px 12px rgba(122,156,184,0.12);
+  }
+  .project-card-label {
+    font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--site-sky); font-weight: 600; margin-bottom: 0.5rem;
+  }
+  .project-card-title {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    font-style: italic; font-size: 1.1rem; font-weight: 400;
+    color: var(--site-ink); margin-bottom: 0.5rem;
+  }
+  .project-card-desc {
+    font-size: 0.875rem; color: var(--site-dusk); line-height: 1.6;
+  }
+  .project-card-link {
+    display: inline-block; margin-top: 1rem;
+    font-size: 0.875rem; color: var(--site-sky); font-weight: 500;
+  }
+
+  /* ── FOOTER ──────────────────────────────────────────── */
+  .footer {
+    background: var(--site-ink);
+    padding: 2.5rem 64px;
+  }
+  .footer-inner {
+    max-width: 900px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .footer-copy {
+    font-size: 0.8rem; color: rgba(255,255,255,0.45);
+  }
+  .footer-links {
+    display: flex; gap: 24px;
+    font-size: 0.8rem;
+  }
+  .footer-links a {
+    color: rgba(255,255,255,0.5); text-decoration: none;
+    transition: color 0.15s ease;
+  }
+  .footer-links a:hover { color: var(--site-sky); }
+
+  /* ── RESPONSIVE ──────────────────────────────────────── */
+  @media (max-width: 768px) {
+    .hero { height: auto; min-height: 480px; }
+    .hero-content { padding: 80px 24px 48px; max-width: 100%; }
+    .tagline-block p { font-size: 1.25rem; white-space: normal; }
+    .nav { padding: 16px 24px; }
+    .nav-links { gap: 20px; font-size: 0.8rem; }
+    .ariel-band { padding: 16px 24px; }
+    .ariel-band-inner { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .section-wrap { padding: 3rem 1.5rem; }
+    .footer { padding: 2rem 24px; }
+    .footer-inner { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    .photo-credit { bottom: 10px; right: 16px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tagline-block p { opacity: 1 !important; animation: none !important; transform: none !important; filter: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <a class="nav-name" href="/">Brett Coryell</a>
+  <div class="nav-links">
+    <a href="#writing">Writing</a>
+    <a href="#projects">Projects</a>
+    <a href="#about">About</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <img src="xingchen-yan-lYBDJP9oSEk-unsplash.jpg" alt="Mountain peaks above clouds, photo by Xingchen Yan">
+  <div class="hero-content">
+    <div class="tagline-block">
+      <p>I spent 30 years making technology work.</p>
+      <p>It always comes down to people.</p>
+      <p>What I've learned is here.</p>
+      <p id="lastLine">If managing well still matters to you, have a look.</p>
+    </div>
+  </div>
+  <div class="photo-credit">
+    Photo: <a href="https://unsplash.com/@xingchenyan?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank" rel="noopener">Xingchen Yan</a>
+    on <a href="https://unsplash.com/photos/a-black-and-white-photo-of-a-mountain-range-lYBDJP9oSEk?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank" rel="noopener">Unsplash</a>
+  </div>
+</div>
+
+<!-- ARIEL BAND -->
+<div class="ariel-band">
+  <div class="ariel-band-inner">
+    <div class="ariel-text" id="arielText">Ariel knows my full career — ask her anything.</div>
+    <a class="ariel-cta" id="arielBtn" href="#" target="_blank" rel="noopener">Talk to Ariel</a>
+  </div>
+</div>
+
+<!-- WRITING -->
+<section id="writing">
+  <div class="section-wrap">
+    <div class="section-label">Recent Writing</div>
+    <div class="writing-grid">
+      <div class="writing-card">
+        <div class="writing-card-date">Jun 2025</div>
+        <div class="writing-card-title">Everyone is different is not the destination</div>
+        <div class="writing-card-desc">What it actually takes to manage individuals well — and why "knowing your people" is just the starting point.</div>
+        <a class="read-link" href="#">Read →</a>
+      </div>
+      <div class="writing-card">
+        <div class="writing-card-date">Coming soon</div>
+        <div class="writing-card-title">In defense of management as a craft</div>
+        <div class="writing-card-desc">The case for treating leadership as a learnable discipline, not a personality type.</div>
+      </div>
+      <div class="writing-card">
+        <div class="writing-card-date">Coming soon</div>
+        <div class="writing-card-title">What thirty years in CIO roles taught me</div>
+        <div class="writing-card-desc">The things that turned out to matter, and the things that didn't.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="section-bg-alt">
+  <div class="section-wrap">
+    <div class="section-label">Things I've Built</div>
+    <div class="projects-grid">
+      <a class="project-card" href="https://market-signal-monitor.vercel.app" target="_blank" rel="noopener">
+        <div class="project-card-label">Markets</div>
+        <div class="project-card-title">Market Signal Monitor</div>
+        <div class="project-card-desc">A personal dashboard tracking seven macro indicators — S&P 500, Brent crude, VIX, Treasury yields, DXY, and Fed policy probability — with daily alerts and AI analysis.</div>
+        <span class="project-card-link">Open →</span>
+      </a>
+      <a class="project-card" href="https://token-burn-nine.vercel.app" target="_blank" rel="noopener">
+        <div class="project-card-label">Infrastructure</div>
+        <div class="project-card-title">Token Burn</div>
+        <div class="project-card-desc">An AI usage dashboard that tracks token consumption across Claude Code and Claude Chat sessions, with daily heatmaps, weekly trends, and cost equivalencies.</div>
+        <span class="project-card-link">Open →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-wrap">
+    <div class="section-label">A little about me</div>
+    <p style="font-size:1.0625rem; line-height:1.75; color:var(--site-ink); max-width:68ch;">
+      I spent thirty years in technology leadership — CIO, CISO, VP Engineering — mostly at growth-stage companies navigating inflection points. The problems were always different. The underlying challenge was almost always the same: getting people to do hard things together, under pressure, with incomplete information. I'm still thinking about how that works.
+    </p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <span class="footer-copy">© 2026 Brett Coryell</span>
+    <div class="footer-links">
+      <a href="https://linkedin.com/in/brettcoryell" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="mailto:brettcoryell@yahoo.com">Email</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  /* ── Nav scroll transition ──────────────────────────── */
+  var nav = document.getElementById('nav');
+  window.addEventListener('scroll', function () {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
+
+  /* ── Hero animation sequence (v16, locked) ─────────── */
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var isMobile = window.innerWidth < 768;
+
+  var T1 = 10000;   // float
+  var T2 = 24000;   // nudge
+  var T3 = 34000;   // sonar (button only)
+
+  /* Last line brightness lift */
+  setTimeout(function () {
+    var line = document.getElementById('lastLine');
+    if (!line || reduced) return;
+    line.style.transition = 'filter 0.6s ease';
+    line.style.filter     = 'brightness(1.35)';
+    setTimeout(function () {
+      line.style.transition = 'filter 1.4s ease';
+      line.style.filter     = 'brightness(1.0)';
+    }, 800);
+  }, 3200);
+
+  if (reduced) return;
+
+  /* 1. FLOAT — clean arc, no bounce */
+  setTimeout(function () {
+    if (isMobile) return;
+    var line = document.getElementById('lastLine');
+    var btn  = document.getElementById('arielBtn');
+    if (!line || !btn) return;
+
+    var lRect = line.getBoundingClientRect();
+    var bRect = btn.getBoundingClientRect();
+
+    var clone = document.createElement('div');
+    clone.textContent = line.textContent;
+    clone.style.cssText = [
+      'position:fixed',
+      'top:'    + lRect.top  + 'px',
+      'left:'   + lRect.left + 'px',
+      'width:'  + lRect.width + 'px',
+      'font-size:clamp(1.4rem, 2.5vw, 1.875rem)',
+      'line-height:1.55',
+      'font-family:Georgia,serif',
+      'font-style:italic',
+      'color:#ffffff',
+      'text-shadow:0 1px 3px rgba(0,0,0,0.45)',
+      'white-space:nowrap',
+      'pointer-events:none',
+      'z-index:100',
+      'will-change:top,left,opacity'
+    ].join(';');
+
+    document.body.appendChild(clone);
+    line.style.visibility = 'hidden';
+
+    var targetLeft = bRect.left + bRect.width  / 2 - lRect.width / 2;
+    var targetTop  = bRect.top  - lRect.height - 28;
+
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        clone.style.transition = [
+          'left 5s cubic-bezier(0.45,0.05,0.55,0.95)',
+          'top 4s ease-in 1s',
+          'opacity 0.6s ease 4.6s'
+        ].join(',');
+        clone.style.left    = targetLeft + 'px';
+        clone.style.top     = targetTop  + 'px';
+        clone.style.opacity = '0.82';
+      });
+    });
+  }, T1);
+
+  /* 2. NUDGE */
+  setTimeout(function () {
+    var txt = document.getElementById('arielText');
+    var btn = document.getElementById('arielBtn');
+    if (!txt || !btn) return;
+
+    var tRect  = txt.getBoundingClientRect();
+    var bRect  = btn.getBoundingClientRect();
+    var travel = bRect.left - tRect.right - 2;
+
+    txt.style.transition = 'transform 0.7s cubic-bezier(0.4,0,0.6,1)';
+    txt.style.transform  = 'translateX(' + travel + 'px)';
+
+    setTimeout(function () {
+      btn.style.transition = 'transform 0.1s ease-out';
+      btn.style.transform  = 'translateX(8px)';
+      setTimeout(function () {
+        btn.style.transition = 'transform 0.35s cubic-bezier(0.36,0.07,0.19,0.97)';
+        btn.style.transform  = 'translateX(0)';
+        txt.style.transition = 'transform 0.7s cubic-bezier(0.4,0,0.6,1)';
+        txt.style.transform  = 'translateX(0)';
+      }, 150);
+    }, 720);
+  }, T2);
+
+  /* 3. SONAR — button only */
+  setTimeout(function () {
+    var btn = document.getElementById('arielBtn');
+    if (!btn) return;
+
+    var r  = btn.getBoundingClientRect();
+    var cx = r.left + r.width  / 2;
+    var cy = r.top  + r.height / 2;
+    var sz = Math.max(r.width, r.height) + 20;
+
+    for (var i = 0; i < 3; i++) {
+      (function (idx) {
+        var ring = document.createElement('div');
+        var ds   = (idx * 0.32).toFixed(2);
+        ring.style.cssText = [
+          'position:fixed',
+          'z-index:9999',
+          'pointer-events:none',
+          'border-radius:50%',
+          'border:2px solid #5b9fd4',
+          'box-sizing:border-box',
+          'width:'  + sz + 'px',
+          'height:' + sz + 'px',
+          'left:'   + (cx - sz / 2) + 'px',
+          'top:'    + (cy - sz / 2) + 'px',
+          'opacity:0.85',
+          'transform:scale(1)',
+          'transition:transform 1.6s ease-out ' + ds + 's, opacity 1.6s ease-out ' + ds + 's'
+        ].join(';');
+        document.body.appendChild(ring);
+
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            ring.style.transform = 'scale(2.8)';
+            ring.style.opacity   = '0';
+          });
+        });
+
+        setTimeout(function () {
+          if (ring.parentNode) ring.parentNode.removeChild(ring);
+        }, 3200 + idx * 320);
+      })(i);
+    }
+  }, T3);
+})();
+</script>
+
+</body>
+</html>
