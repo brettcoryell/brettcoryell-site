@@ -60,7 +60,9 @@
     font-size: 0.9rem; font-weight: 600; letter-spacing: 0.08em;
     text-transform: uppercase; color: var(--site-sky);
     text-decoration: none;
+    transition: color 0.25s ease;
   }
+  .nav.scrolled .nav-name { color: var(--site-ink); }
   .nav-links {
     display: flex; gap: 36px;
     font-size: 0.875rem; font-weight: 500; color: rgba(255,255,255,0.85);
@@ -91,7 +93,7 @@
   .tagline-block p {
     font-family: 'Georgia', 'Times New Roman', serif;
     font-style: italic;
-    font-size: clamp(1.4rem, 2.5vw, 1.875rem);
+    font-size: clamp(1.4rem, 2.5vw, 2rem);
     line-height: 1.55;
     color: #ffffff;
     text-shadow: 0 1px 3px rgba(0,0,0,0.45);
