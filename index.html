@@ -462,15 +462,17 @@
         clone.style.top     = targetTop  + 'px';
         clone.style.opacity = '0.82';
 
-        /* after float settles, fade clone out and restore original line */
-        setTimeout(function () {
-          clone.style.transition = 'opacity 1.2s ease';
+        /* on first scroll after float settles, fade clone out */
+        var removeCloneOnScroll = function () {
+          clone.style.transition = 'opacity 0.6s ease';
           clone.style.opacity    = '0';
           setTimeout(function () {
             if (clone.parentNode) clone.parentNode.removeChild(clone);
             line.style.visibility = '';
-          }, 1200);
-        }, 5500);
+          }, 600);
+          window.removeEventListener('scroll', removeCloneOnScroll);
+        };
+        window.addEventListener('scroll', removeCloneOnScroll, { passive: true });
       });
     });
   }, T1);
