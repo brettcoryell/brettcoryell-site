@@ -461,6 +461,16 @@
         clone.style.left    = targetLeft + 'px';
         clone.style.top     = targetTop  + 'px';
         clone.style.opacity = '0.82';
+
+        /* after float settles, fade clone out and restore original line */
+        setTimeout(function () {
+          clone.style.transition = 'opacity 1.2s ease';
+          clone.style.opacity    = '0';
+          setTimeout(function () {
+            if (clone.parentNode) clone.parentNode.removeChild(clone);
+            line.style.visibility = '';
+          }, 1200);
+        }, 5500);
       });
     });
   }, T1);
