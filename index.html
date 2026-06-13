@@ -386,6 +386,12 @@
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var isMobile = window.innerWidth < 768;
 
+  /* Interacted guard — float/nudge/sonar cancel if user engages before they fire */
+  var interacted = false;
+  function markInteracted() { interacted = true; }
+  window.addEventListener('scroll', markInteracted, { passive: true, once: true });
+  window.addEventListener('click', markInteracted, { once: true });
+
   var T1 = 10000;   // float
   var T2 = 24000;   // nudge
   var T3 = 34000;   // sonar (button only)
@@ -406,7 +412,7 @@
 
   /* 1. FLOAT — clean arc, no bounce */
   setTimeout(function () {
-    if (isMobile) return;
+    if (isMobile || interacted) return;
     var line = document.getElementById('lastLine');
     var btn  = document.getElementById('arielBtn');
     if (!line || !btn) return;
@@ -455,6 +461,7 @@
 
   /* 2. NUDGE */
   setTimeout(function () {
+    if (interacted) return;
     var txt = document.getElementById('arielText');
     var btn = document.getElementById('arielBtn');
     if (!txt || !btn) return;
@@ -480,6 +487,7 @@
 
   /* 3. SONAR — button only */
   setTimeout(function () {
+    if (interacted) return;
     var btn = document.getElementById('arielBtn');
     if (!btn) return;
 
