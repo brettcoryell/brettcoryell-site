@@ -437,12 +437,18 @@
       'will-change:top,left,opacity'
     ].join(';');
 
-    /* activate backdrop on clone only — not visible in static home position */
-    var cloneBg = clone.querySelector('.line-bg');
-    if (cloneBg) {
-      cloneBg.style.background = 'linear-gradient(to right,transparent 0px,rgba(0,0,0,0.20) 20px,rgba(0,0,0,0.20) calc(100% - 20px),transparent 100%)';
-      cloneBg.style.padding = '0.2rem 20px';
-    }
+    /* backdrop: separate absolutely-positioned child of the clone, invisible during float */
+    var backdropEl = document.createElement('div');
+    backdropEl.style.cssText = [
+      'position:absolute',
+      'top:0', 'left:0', 'right:0', 'bottom:0',
+      'background:linear-gradient(to right,transparent 0px,rgba(0,0,0,0.20) 20px,rgba(0,0,0,0.20) calc(100% - 20px),transparent 100%)',
+      'opacity:0',
+      'transition:opacity 0.8s ease',
+      'pointer-events:none',
+      'z-index:-1'
+    ].join(';');
+    clone.appendChild(backdropEl);
 
     document.body.appendChild(clone);
     line.style.visibility = 'hidden';
@@ -451,6 +457,7 @@
 
     var targetLeft = bRect.left + bRect.width  / 2 - lRect.width / 2;
     var targetTop  = bRect.top  - lRect.height - 28;
+    var backdropTimer;
 
     requestAnimationFrame(function () {
       requestAnimationFrame(function () {
@@ -463,8 +470,14 @@
         clone.style.top     = targetTop  + 'px';
         clone.style.opacity = '0.82';
 
+        /* fade backdrop in after float finishes (~5.2s) */
+        backdropTimer = setTimeout(function () {
+          backdropEl.style.opacity = '1';
+        }, 5300);
+
         /* on first scroll after float settles, fade clone out */
         var removeCloneOnScroll = function () {
+          clearTimeout(backdropTimer);
           clone.style.transition = 'opacity 0.6s ease';
           clone.style.opacity    = '0';
           setTimeout(function () {
