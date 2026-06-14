@@ -106,7 +106,7 @@
   .tagline-block p:nth-child(1) { animation-delay: 0.5s; }
   .tagline-block p:nth-child(2) { animation-delay: 0.85s; }
   .tagline-block p:nth-child(3) { animation-delay: 1.15s; }
-  .tagline-block p:nth-child(4) { animation-delay: 1.45s; filter: brightness(0.82); }
+  .tagline-block p:nth-child(4) { animation-delay: 1.45s; }
 
   @keyframes drift {
     0%   { opacity: 0; transform: translateY(18px); }
@@ -279,7 +279,6 @@
 <nav class="nav" id="nav">
   <a class="nav-name" href="/">Brett Coryell</a>
   <div class="nav-links">
-    <a href="#writing">Writing</a>
     <a href="#projects">Projects</a>
     <a href="#about">About</a>
   </div>
@@ -309,31 +308,6 @@
     <a class="ariel-cta" id="arielBtn" href="https://ai-resume-mu-seven.vercel.app" target="_blank" rel="noopener">Talk to Ariel</a>
   </div>
 </div>
-
-<!-- WRITING -->
-<section id="writing">
-  <div class="section-wrap">
-    <div class="section-label">Recent Writing</div>
-    <div class="writing-grid">
-      <div class="writing-card">
-        <div class="writing-card-date">Jun 2025</div>
-        <div class="writing-card-title">Everyone is different is not the destination</div>
-        <div class="writing-card-desc">What it actually takes to manage individuals well — and why "knowing your people" is just the starting point.</div>
-        <a class="read-link" href="#">Read →</a>
-      </div>
-      <div class="writing-card">
-        <div class="writing-card-date">Coming soon</div>
-        <div class="writing-card-title">In defense of management as a craft</div>
-        <div class="writing-card-desc">The case for treating leadership as a learnable discipline, not a personality type.</div>
-      </div>
-      <div class="writing-card">
-        <div class="writing-card-date">Coming soon</div>
-        <div class="writing-card-title">What thirty years in CIO roles taught me</div>
-        <div class="writing-card-desc">The things that turned out to matter, and the things that didn't.</div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- PROJECTS -->
 <section id="projects" class="section-bg-alt">
@@ -375,8 +349,11 @@
 <!-- FOOTER -->
 <footer class="footer">
   <div class="footer-inner">
-    <span class="footer-copy">© 2026 Brett Coryell</span>
+    <span class="footer-copy">© <span id="footer-year">2026</span> Brett Coryell</span>
     <div class="footer-links">
+      <a href="#projects">Projects</a>
+      <a href="#about">About</a>
+      <span style="color:rgba(255,255,255,0.2);user-select:none;">|</span>
       <a href="https://linkedin.com/in/brettcoryell" target="_blank" rel="noopener">LinkedIn</a>
       <a href="mailto:brettcoryell@yahoo.com">Email</a>
     </div>
@@ -386,6 +363,8 @@
 <script>
 (function () {
   /* ── Nav scroll transition ──────────────────────────── */
+  document.getElementById('footer-year').textContent = new Date().getFullYear();
+
   var nav = document.getElementById('nav');
   window.addEventListener('scroll', function () {
     nav.classList.toggle('scrolled', window.scrollY > 40);
