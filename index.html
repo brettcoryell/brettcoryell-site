@@ -123,8 +123,14 @@
   .photo-credit a { color: inherit; text-decoration: none; }
   .photo-credit a:hover { color: var(--site-sky); }
 
-  /* span wrapping line 4 — backdrop gradient applied via JS only when floating */
+  /* span wrapping line 4 — no static styling; backdrop handled entirely by JS clone */
   .line-bg { background: none; padding: 0; }
+
+  /* glassmorphism reveal: fires on the backdrop child of the floating clone */
+  @keyframes revealBackground {
+    from { background: rgba(0,0,0,0);    backdrop-filter: blur(0px);  -webkit-backdrop-filter: blur(0px); }
+    to   { background: rgba(0,0,0,0.25); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+  }
 
   /* ── ARIEL BAND ───────────────────────────────────────── */
   .ariel-band {
@@ -437,14 +443,16 @@
       'will-change:top,left,opacity'
     ].join(';');
 
-    /* backdrop: separate absolutely-positioned child of the clone, invisible during float */
+    /* glassmorphism backdrop: absolutely-positioned child, revealed via CSS animation after float settles */
     var backdropEl = document.createElement('div');
     backdropEl.style.cssText = [
       'position:absolute',
-      'top:0', 'left:0', 'right:0', 'bottom:0',
-      'background:linear-gradient(to right,transparent 0px,rgba(0,0,0,0.20) 20px,rgba(0,0,0,0.20) calc(100% - 20px),transparent 100%)',
-      'opacity:0',
-      'transition:opacity 0.8s ease',
+      'top:-4px', 'left:-20px', 'right:-20px', 'bottom:-4px',
+      'border-radius:6px',
+      'background:rgba(0,0,0,0)',
+      '-webkit-backdrop-filter:blur(0px)',
+      'backdrop-filter:blur(0px)',
+      'animation:revealBackground 0.8s ease-in-out 5.3s forwards',
       'pointer-events:none',
       'z-index:-1'
     ].join(';');
@@ -457,7 +465,6 @@
 
     var targetLeft = bRect.left + bRect.width  / 2 - lRect.width / 2;
     var targetTop  = bRect.top  - lRect.height - 28;
-    var backdropTimer;
 
     requestAnimationFrame(function () {
       requestAnimationFrame(function () {
@@ -470,14 +477,8 @@
         clone.style.top     = targetTop  + 'px';
         clone.style.opacity = '0.82';
 
-        /* fade backdrop in after float finishes (~5.2s) */
-        backdropTimer = setTimeout(function () {
-          backdropEl.style.opacity = '1';
-        }, 5300);
-
         /* on first scroll after float settles, fade clone out */
         var removeCloneOnScroll = function () {
-          clearTimeout(backdropTimer);
           clone.style.transition = 'opacity 0.6s ease';
           clone.style.opacity    = '0';
           setTimeout(function () {
