@@ -126,10 +126,10 @@
   /* span wrapping line 4 — no static styling; backdrop handled entirely by JS clone */
   .line-bg { background: none; padding: 0; }
 
-  /* glassmorphism reveal: fires on the backdrop child of the floating clone */
+  /* glassmorphism reveal: animates blur on the floating clone itself, no dark tint */
   @keyframes revealBackground {
-    from { background: rgba(0,0,0,0);    backdrop-filter: blur(0px);  -webkit-backdrop-filter: blur(0px); }
-    to   { background: rgba(0,0,0,0.25); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+    from { -webkit-backdrop-filter: blur(0px);  backdrop-filter: blur(0px); }
+    to   { -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); }
   }
 
   /* ── ARIEL BAND ───────────────────────────────────────── */
@@ -443,20 +443,9 @@
       'will-change:top,left,opacity'
     ].join(';');
 
-    /* glassmorphism backdrop: absolutely-positioned child, revealed via CSS animation after float settles */
-    var backdropEl = document.createElement('div');
-    backdropEl.style.cssText = [
-      'position:absolute',
-      'top:-4px', 'left:-20px', 'right:-20px', 'bottom:-4px',
-      'border-radius:6px',
-      'background:rgba(0,0,0,0)',
-      '-webkit-backdrop-filter:blur(0px)',
-      'backdrop-filter:blur(0px)',
-      'animation:revealBackground 0.8s ease-in-out 5.3s forwards',
-      'pointer-events:none',
-      'z-index:-1'
-    ].join(';');
-    clone.appendChild(backdropEl);
+    /* glassmorphism blur applied to the clone itself — blurs mountain behind text, no dark tint */
+    clone.style.borderRadius = '6px';
+    clone.style.animation = 'revealBackground 0.8s ease-in-out 5.3s forwards';
 
     document.body.appendChild(clone);
     line.style.visibility = 'hidden';
