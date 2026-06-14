@@ -124,7 +124,7 @@
   .photo-credit a:hover { color: var(--site-sky); }
 
   /* span wrapping line 4 — backdrop gradient applied via JS only when floating */
-  .line-bg { }
+  .line-bg { background: none; padding: 0; }
 
   /* ── ARIEL BAND ───────────────────────────────────────── */
   .ariel-band {
@@ -143,15 +143,15 @@
   }
   .ariel-cta {
     font-size: 0.875rem; font-weight: 500; letter-spacing: 0.03em;
-    color: #fff; background: var(--site-sky);
+    color: #fff; background: var(--site-sky-deep);
     padding: 0.5rem 1.25rem;
     border-radius: 4px;
     cursor: pointer; border: none;
     white-space: nowrap;
-    transition: background-color 0.15s ease;
+    transition: background-color 0.15s ease, filter 0.15s ease;
     text-decoration: none; display: inline-block;
   }
-  .ariel-cta:hover { background: var(--site-sky-deep); }
+  .ariel-cta:hover { background: var(--site-sky-deep); filter: brightness(0.88); }
   .ariel-cta:focus { outline: 2px solid var(--site-sky); outline-offset: 2px; }
 
   /* ── CONTENT SECTIONS ────────────────────────────────── */
