@@ -126,11 +126,6 @@
   /* span wrapping line 4 — no static styling; backdrop handled entirely by JS clone */
   .line-bg { background: none; padding: 0; }
 
-  /* glassmorphism reveal: animates blur on the floating clone itself, no dark tint */
-  @keyframes revealBackground {
-    from { -webkit-backdrop-filter: blur(0px);  backdrop-filter: blur(0px); }
-    to   { -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); }
-  }
 
   /* ── ARIEL BAND ───────────────────────────────────────── */
   .ariel-band {
@@ -443,9 +438,6 @@
       'will-change:top,left,opacity'
     ].join(';');
 
-    /* glassmorphism blur applied to the clone itself — blurs mountain behind text, no dark tint */
-    clone.style.borderRadius = '6px';
-    clone.style.animation = 'revealBackground 0.8s ease-in-out 5.3s forwards';
 
     document.body.appendChild(clone);
     line.style.visibility = 'hidden';
