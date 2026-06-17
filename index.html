@@ -5,29 +5,20 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Brett Coryell</title>
 <style>
-  /* ── Site Design System v1.0 ───────────────────────────── */
+  /* ── Site Design System v2.0 — primitives layer ─────────── */
   :root {
-    --site-sky:        #7a9cb8;
-    --site-sky-deep:   #5b7d99;
-    --site-sky-pale:   #dce8f0;
-    --site-ink:        #1a2332;
-    --site-dusk:       #4a5568;
-    --site-mist:       #8a9ab5;
-    --site-fog:        #e8edf3;
-    --site-cloud:      #f5f7fa;
-    --site-page:       #ffffff;
-    --site-warm:       #c4956a;
-
-    --site-txt:          var(--site-ink);
-    --site-txt-secondary:var(--site-dusk);
-    --site-txt-faint:    var(--site-mist);
-    --site-border:       var(--site-fog);
-    --site-accent:       var(--site-sky);
-    --site-accent-hover: var(--site-sky-deep);
-    --site-bg:           var(--site-page);
-    --site-bg-alt:       var(--site-cloud);
-    --site-ariel-border: var(--site-sky-deep);
-    --site-ariel-bg:     var(--site-sky-pale);
+    --primitive-sky:        #7a9cb8;
+    --primitive-sky-deep:   #5b7d99;
+    --primitive-sky-pale:   #dce8f0;
+    --primitive-ink:        #1a2332;
+    --primitive-dusk:       #4a5568;
+    --primitive-mist:       #8a9ab5;
+    --primitive-fog:        #e8edf3;
+    --primitive-cloud:      #f5f7fa;
+    --primitive-page:       #ffffff;
+    --primitive-warm:       #c4956a;
+    --primitive-coral:      #D85A30;
+    --primitive-sonar:      #5b9fd4;
 
     --space-xs: 0.5rem;
     --space-sm: 1rem;
@@ -39,9 +30,9 @@
   * { margin:0; padding:0; box-sizing:border-box; }
 
   body {
-    background: var(--site-bg);
+    background: var(--color-bg-page);
     font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', system-ui, sans-serif;
-    color: var(--site-txt);
+    color: var(--color-text-primary);
   }
 
   /* ── NAV ──────────────────────────────────────────────── */
@@ -54,26 +45,26 @@
   .nav.scrolled {
     background: rgba(255,255,255,0.95);
     backdrop-filter: blur(8px);
-    box-shadow: 0 1px 0 var(--site-fog);
+    box-shadow: 0 1px 0 var(--color-border);
   }
   .nav-name {
     font-size: 0.9rem; font-weight: 600; letter-spacing: 0.08em;
-    text-transform: uppercase; color: var(--site-sky);
+    text-transform: uppercase; color: var(--color-interactive);
     text-decoration: none;
     transition: color 0.25s ease;
   }
-  .nav.scrolled .nav-name { color: var(--site-ink); }
+  .nav.scrolled .nav-name { color: var(--color-text-primary); }
   .nav-links {
     display: flex; gap: 36px;
-    font-size: 0.875rem; font-weight: 500; color: var(--site-sky);
+    font-size: 0.875rem; font-weight: 500; color: var(--color-interactive);
   }
-  .nav.scrolled .nav-links { color: var(--site-ink); }
+  .nav.scrolled .nav-links { color: var(--color-text-primary); }
   .nav-links a {
     color: inherit; text-decoration: none;
     transition: color 0.15s ease;
   }
-  .nav-links a:hover { color: var(--site-sky); }
-  .nav.scrolled .nav-links a:hover { color: var(--site-sky); }
+  .nav-links a:hover { color: var(--color-interactive); }
+  .nav.scrolled .nav-links a:hover { color: var(--color-interactive); }
 
   /* ── HERO ─────────────────────────────────────────────── */
   .hero {
@@ -121,7 +112,7 @@
     transition: opacity 0.5s ease;
   }
   .photo-credit a { color: inherit; text-decoration: none; }
-  .photo-credit a:hover { color: var(--site-sky); }
+  .photo-credit a:hover { color: var(--color-interactive); }
 
   /* span wrapping line 4 — no static styling; backdrop handled entirely by JS clone */
   .line-bg { background: none; padding: 0; }
@@ -129,8 +120,8 @@
 
   /* ── ARIEL BAND ───────────────────────────────────────── */
   .ariel-band {
-    background: var(--site-ariel-bg);
-    border-left: 6px solid var(--site-ariel-border);
+    background: var(--color-bg-raised);
+    border-left: 6px solid var(--color-border-accent);
     padding: 20px 64px;
   }
   .ariel-band-inner {
@@ -139,12 +130,12 @@
   }
   .ariel-text {
     font-size: 0.9375rem;
-    color: var(--site-ink);
+    color: var(--color-text-primary);
     font-style: italic;
   }
   .ariel-cta {
     font-size: 0.875rem; font-weight: 500; letter-spacing: 0.03em;
-    color: #fff; background: var(--site-sky-deep);
+    color: var(--color-interactive-text); background: var(--color-interactive-hover);
     padding: 0.5rem 1.25rem;
     border-radius: 4px;
     cursor: pointer; border: none;
@@ -152,24 +143,24 @@
     transition: background-color 0.15s ease, filter 0.15s ease;
     text-decoration: none; display: inline-block;
   }
-  .ariel-cta:hover { background: var(--site-sky-deep); filter: brightness(0.88); }
-  .ariel-cta:focus { outline: 2px solid var(--site-sky); outline-offset: 2px; }
+  .ariel-cta:hover { background: var(--color-interactive-hover); filter: brightness(0.88); }
+  .ariel-cta:focus { outline: 2px solid var(--color-interactive); outline-offset: 2px; }
 
   /* ── CONTENT SECTIONS ────────────────────────────────── */
   .section-wrap {
     max-width: 900px; margin: 0 auto; padding: var(--space-xl) var(--space-md);
   }
-  .section-bg-alt { background: var(--site-bg-alt); }
+  .section-bg-alt { background: var(--color-bg-alt); }
 
   .section-label {
     font-family: 'Georgia', 'Times New Roman', serif;
     font-size: 1.6rem; font-weight: 400;
-    color: var(--site-ink);
+    color: var(--color-text-primary);
     margin: 0 0 var(--space-md) 0;
   }
 
   /* ── WRITING SECTION ─────────────────────────────────── */
-  #writing { background: var(--site-bg); }
+  #writing { background: var(--color-bg-page); }
 
   .writing-grid {
     display: grid;
@@ -177,31 +168,31 @@
     gap: 2rem;
   }
   .writing-card {
-    border-top: 1px solid var(--site-fog);
+    border-top: 1px solid var(--color-border);
     padding-top: 1rem;
   }
   .writing-card-date {
-    font-size: 0.8rem; color: var(--site-mist);
+    font-size: 0.8rem; color: var(--color-text-faint);
     font-variant-numeric: tabular-nums; margin-bottom: 0.5rem;
   }
   .writing-card-title {
     font-family: 'Georgia', 'Times New Roman', serif;
     font-style: italic; font-size: 1.1rem; font-weight: 400;
-    color: var(--site-ink); line-height: 1.45;
+    color: var(--color-text-primary); line-height: 1.45;
     margin-bottom: 0.5rem;
   }
   .writing-card-desc {
-    font-size: 0.9rem; color: var(--site-dusk); line-height: 1.6;
+    font-size: 0.9rem; color: var(--color-text-secondary); line-height: 1.6;
     margin-bottom: 0.75rem;
   }
   .read-link {
-    font-size: 0.875rem; color: var(--site-sky); font-weight: 500;
+    font-size: 0.875rem; color: var(--color-interactive); font-weight: 500;
     text-decoration: none;
   }
-  .read-link:hover { color: var(--site-sky-deep); }
+  .read-link:hover { color: var(--color-interactive-hover); }
 
   /* ── PROJECTS SECTION ────────────────────────────────── */
-  #projects { background: var(--site-bg-alt); }
+  #projects { background: var(--color-bg-alt); }
 
   .projects-grid {
     display: grid;
@@ -209,37 +200,37 @@
     gap: 1.5rem;
   }
   .project-card {
-    background: var(--site-page);
-    border: 1px solid var(--site-fog);
+    background: var(--color-bg-page);
+    border: 1px solid var(--color-border);
     padding: 1.5rem;
     text-decoration: none;
     display: block;
     transition: border-color 0.15s ease, box-shadow 0.15s ease;
   }
   .project-card:hover {
-    border-color: var(--site-sky);
+    border-color: var(--color-interactive);
     box-shadow: 0 2px 12px rgba(122,156,184,0.12);
   }
   .project-card-label {
     font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase;
-    color: var(--site-sky); font-weight: 600; margin-bottom: 0.5rem;
+    color: var(--color-interactive); font-weight: 600; margin-bottom: 0.5rem;
   }
   .project-card-title {
     font-family: 'Georgia', 'Times New Roman', serif;
     font-style: italic; font-size: 1.1rem; font-weight: 400;
-    color: var(--site-ink); margin-bottom: 0.5rem;
+    color: var(--color-text-primary); margin-bottom: 0.5rem;
   }
   .project-card-desc {
-    font-size: 0.875rem; color: var(--site-dusk); line-height: 1.6;
+    font-size: 0.875rem; color: var(--color-text-secondary); line-height: 1.6;
   }
   .project-card-link {
     display: inline-block; margin-top: 1rem;
-    font-size: 0.875rem; color: var(--site-sky); font-weight: 500;
+    font-size: 0.875rem; color: var(--color-interactive); font-weight: 500;
   }
 
   /* ── FOOTER ──────────────────────────────────────────── */
   .footer {
-    background: var(--site-ink);
+    background: var(--color-text-primary);
     padding: 2.5rem 64px;
   }
   .footer-inner {
@@ -257,7 +248,7 @@
     color: rgba(255,255,255,0.5); text-decoration: none;
     transition: color 0.15s ease;
   }
-  .footer-links a:hover { color: var(--site-sky); }
+  .footer-links a:hover { color: var(--color-interactive); }
 
   /* ── RESPONSIVE ──────────────────────────────────────── */
   @media (max-width: 768px) {
@@ -278,6 +269,7 @@
     .tagline-block p { opacity: 1 !important; animation: none !important; transform: none !important; filter: none !important; }
   }
 </style>
+<link rel="stylesheet" href="themes/default.css">
 </head>
 <body>
 
@@ -352,7 +344,7 @@
 <section id="about">
   <div class="section-wrap">
     <h2 class="section-label">A little about me</h2>
-    <p style="font-size:1.0625rem; line-height:1.75; color:var(--site-ink); max-width:68ch;">
+    <p style="font-size:1.0625rem; line-height:1.75; color:var(--color-text-primary); max-width:68ch;">
       I spent thirty years in technology leadership — CIO, CISO, VP Engineering — mostly at growth-stage companies navigating inflection points. The problems were always different. The underlying challenge was almost always the same: getting people to do hard things together, under pressure, with incomplete information. I'm still thinking about how that works.
     </p>
   </div>
@@ -526,7 +518,7 @@
           'z-index:9999',
           'pointer-events:none',
           'border-radius:50%',
-          'border:2px solid #5b9fd4',
+          'border:2px solid var(--color-sonar)',
           'box-sizing:border-box',
           'width:'  + sz + 'px',
           'height:' + sz + 'px',
