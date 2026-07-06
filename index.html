@@ -293,7 +293,7 @@
 
 <!-- HERO -->
 <div class="hero">
-  <img src="xingchen-yan-lYBDJP9oSEk-unsplash.jpg" alt="Mountain peaks above clouds, photo by Xingchen Yan">
+  <img id="heroImage" src="xingchen-yan-lYBDJP9oSEk-unsplash.jpg" alt="Mountain peaks above clouds, photo by Xingchen Yan">
   <div class="hero-content">
     <div class="tagline-block">
       <p>I spent 30 years making technology work.</p>
@@ -383,6 +383,19 @@
 (function () {
   /* ── Nav scroll transition ──────────────────────────── */
   document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+  var activeTheme = document.documentElement.getAttribute('data-theme');
+  if (activeTheme === 'flow') {
+    var heroImage = document.getElementById('heroImage');
+    var photoCredit = document.querySelector('.photo-credit');
+    if (heroImage) {
+      heroImage.src = 'flow-hero.png';
+      heroImage.alt = 'Aurora-like green sky over golden cloud tops with a seated figure on a platform';
+    }
+    if (photoCredit) {
+      photoCredit.textContent = 'Image: Flow theme study';
+    }
+  }
 
   var nav = document.getElementById('nav');
   window.addEventListener('scroll', function () {

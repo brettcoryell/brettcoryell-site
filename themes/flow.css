@@ -31,6 +31,10 @@
     linear-gradient(180deg, #071719 0%, #081c1f 45%, #071719 100%);
 }
 
+[data-theme="flow"] .hero img {
+  object-position: 65% bottom;
+}
+
 [data-theme="flow"] .nav.scrolled {
   background: rgba(3, 16, 18, 0.92);
   backdrop-filter: blur(10px);
