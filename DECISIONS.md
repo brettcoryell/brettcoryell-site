@@ -63,7 +63,7 @@ The canonical **Site Design Guide v1.1** lives in Google Drive at ID `1XvkBGW3RL
 
 These apply to every change, no exceptions without Brett's explicit approval:
 
-- **No text-shadow** on any text, anywhere. Brett dislikes drop shadows on text broadly.
+- **No text-shadow** on any text, except the hero tagline text and its temporary JS animation clone. Those two hero-only exceptions preserve readability over the cloud background; do not add text shadows elsewhere.
 - **No hero gradient scrim** over the background image.
 - **No dark mode toggle.** The site is light-mode only.
 - **Section headers are serif** (Georgia, 1.6rem, weight 400). Do not switch to sans-serif.
