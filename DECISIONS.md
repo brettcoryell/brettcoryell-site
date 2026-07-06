@@ -53,6 +53,10 @@ DNS: four CNAMEs at Hover pointing to `cname.vercel-dns.com`.
 
 The comment inside `themes/default.css` restates this rule. DECISIONS.md is the enforcement point.
 
+### Theme previews
+
+The main site may carry opt-in preview themes in separate files such as `themes/flow.css`. Preview themes must use the existing semantic token names; do not add tokens to `themes/default.css` for a one-site experiment. Preview themes are activated by URL query parameter, for example `?theme=flow`, and must not add a visible theme picker until Brett explicitly approves one. Subdomain/app theme inheritance is deferred.
+
 ### Design Guide
 
 The canonical **Site Design Guide v1.1** lives in Google Drive at ID `1XvkBGW3RL7zGOcmezC_QZsa_GAS6-MUrFEFpLTCrod8`. It is the authority on color palette, type scale, spacing, and component patterns. Read it before making visual changes.
@@ -65,9 +69,9 @@ These apply to every change, no exceptions without Brett's explicit approval:
 
 - **No text-shadow** on any text, except the hero tagline text and its temporary JS animation clone. Those two hero-only exceptions preserve readability over the cloud background; do not add text shadows elsewhere.
 - **No hero gradient scrim** over the background image.
-- **No dark mode toggle.** The site is light-mode only.
+- **No dark mode toggle.** The default site remains light-mode only; opt-in preview themes may explore darker palettes behind query parameters, with no visible picker.
 - **Section headers are serif** (Georgia, 1.6rem, weight 400). Do not switch to sans-serif.
-- **CTA button is solid fill** — sky-deep (`#5b7d99`) background, white text, `brightness(0.88)` on hover. Not outlined.
+- **CTA button is solid fill** — default theme uses sky-deep (`#5b7d99`) background and white text; preview themes may remap fill/text through semantic tokens. `brightness(0.88)` on hover. Not outlined.
 - **No all-caps on label text.**
 - **Project cards open in-place** — no `target="_blank"`.
 
