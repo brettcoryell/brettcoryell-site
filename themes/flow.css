@@ -2,25 +2,25 @@
 /* Preview with ?theme=flow. Uses existing semantic token names only. */
 
 [data-theme="flow"] {
-  --color-interactive:        #56f0d1;
-  --color-interactive-hover:  #21c7a4;
+  --color-interactive:        #4ee6bd;
+  --color-interactive-hover:  #26c9a5;
   --color-interactive-text:   #031617;
-  --color-bg-page:            #071719;
-  --color-bg-alt:             #0b2022;
-  --color-bg-raised:          #102f2d;
-  --color-text-primary:       #e8fff8;
-  --color-text-secondary:     #bad7d0;
-  --color-text-faint:         #7da39d;
-  --color-text-on-dark:       rgba(232, 255, 248, 0.78);
-  --color-text-on-dark-faint: rgba(232, 255, 248, 0.46);
-  --color-border:             rgba(108, 237, 204, 0.20);
-  --color-border-accent:      #56f0d1;
-  --color-accent-warm:        #ff9b47;
-  --color-accent-path:        #ff6f3c;
+  --color-bg-page:            #061416;
+  --color-bg-alt:             #071c1d;
+  --color-bg-raised:          #132d29;
+  --color-text-primary:       #fff8ea;
+  --color-text-secondary:     #c7d8d1;
+  --color-text-faint:         #8aa8a0;
+  --color-text-on-dark:       rgba(255, 248, 234, 0.80);
+  --color-text-on-dark-faint: rgba(255, 248, 234, 0.48);
+  --color-border:             rgba(78, 230, 189, 0.20);
+  --color-border-accent:      #4ee6bd;
+  --color-accent-warm:        #f29a3f;
+  --color-accent-path:        #ff7a45;
   --color-bg-footer:          #031012;
-  --color-chart-label:        #82b8ad;
-  --color-chart-grid:         rgba(86, 240, 209, 0.10);
-  --color-sonar:              #56f0d1;
+  --color-chart-label:        #91b4aa;
+  --color-chart-grid:         rgba(78, 230, 189, 0.10);
+  --color-sonar:              #4ee6bd;
   --font-display:             'Georgia', 'Times New Roman', serif;
   --font-body:                'Avenir Next', 'Inter', 'Segoe UI', system-ui, sans-serif;
 }
@@ -33,6 +33,22 @@
 
 [data-theme="flow"] .hero img {
   object-position: 65% bottom;
+}
+
+[data-theme="flow"] .nav-name,
+[data-theme="flow"] .nav-links {
+  color: var(--color-text-primary);
+}
+
+[data-theme="flow"] .nav-name {
+  font-family: 'Orbitron', 'Rajdhani', 'Avenir Next', 'Inter', 'Segoe UI', system-ui, sans-serif;
+  font-weight: 600;
+}
+
+[data-theme="flow"] .nav-links a:hover,
+[data-theme="flow"] .nav.scrolled .nav-links a:hover,
+[data-theme="flow"] .nav.scrolled .nav-name:hover {
+  color: var(--color-accent-warm);
 }
 
 [data-theme="flow"] .nav.scrolled {

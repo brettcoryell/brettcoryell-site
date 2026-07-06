@@ -9,6 +9,12 @@
     var params = new URLSearchParams(window.location.search);
     var theme = params.get('theme');
     document.documentElement.setAttribute('data-theme', theme === 'flow' ? 'flow' : 'default');
+    if (theme === 'flow') {
+      var fontLink = document.createElement('link');
+      fontLink.rel = 'stylesheet';
+      fontLink.href = 'https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600&display=swap';
+      document.head.appendChild(fontLink);
+    }
   })();
 </script>
 <style>
