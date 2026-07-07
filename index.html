@@ -4,13 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Brett Coryell</title>
-<script>
-  (function () {
-    var params = new URLSearchParams(window.location.search);
-    var theme = params.get('theme');
-    document.documentElement.setAttribute('data-theme', theme === 'flow' ? 'flow' : 'default');
-  })();
-</script>
 <style>
   /* ── Site Design System v2.0 — primitives layer ─────────── */
   :root {
@@ -38,7 +31,7 @@
 
   body {
     background: var(--color-bg-page);
-    font-family: var(--font-body);
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', system-ui, sans-serif;
     color: var(--color-text-primary);
   }
 
@@ -87,9 +80,6 @@
     display: flex; flex-direction: column; justify-content: center;
     padding: 0 clamp(2rem,5vw,6rem);
     max-width: 760px;
-  }
-  .flow-wordmark {
-    display: none;
   }
   .tagline-block { display: flex; flex-direction: column; gap: 0; }
   .tagline-block p {
@@ -213,7 +203,6 @@
     background: var(--color-bg-page);
     border: 1px solid var(--color-border);
     padding: 1.5rem;
-    color: var(--color-text-primary);
     text-decoration: none;
     display: block;
     transition: border-color 0.15s ease, box-shadow 0.15s ease;
@@ -281,7 +270,6 @@
   }
 </style>
 <link rel="stylesheet" href="themes/default.css">
-<link rel="stylesheet" href="themes/flow.css">
 </head>
 <body>
 
@@ -296,8 +284,7 @@
 
 <!-- HERO -->
 <div class="hero">
-  <img id="heroImage" src="xingchen-yan-lYBDJP9oSEk-unsplash.jpg" alt="Mountain peaks above clouds, photo by Xingchen Yan">
-  <div class="flow-wordmark" id="flowWordmark" aria-hidden="true">M  A  N  A  G  E</div>
+  <img src="xingchen-yan-lYBDJP9oSEk-unsplash.jpg" alt="Mountain peaks above clouds, photo by Xingchen Yan">
   <div class="hero-content">
     <div class="tagline-block">
       <p>I spent 30 years making technology work.</p>
@@ -388,141 +375,14 @@
   /* ── Nav scroll transition ──────────────────────────── */
   document.getElementById('footer-year').textContent = new Date().getFullYear();
 
-  var activeTheme = document.documentElement.getAttribute('data-theme');
-  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var isMobile = window.innerWidth < 768;
-
-  if (activeTheme === 'flow') {
-    var heroImage = document.getElementById('heroImage');
-    var photoCredit = document.querySelector('.photo-credit');
-    if (heroImage) {
-      heroImage.src = 'flow-hero.png';
-      heroImage.alt = 'Aurora-like green sky over golden cloud tops with a seated figure on a platform';
-    }
-    if (photoCredit) {
-      photoCredit.textContent = '';
-    }
-
-    runFlowTypewriter();
-  }
-
   var nav = document.getElementById('nav');
   window.addEventListener('scroll', function () {
     nav.classList.toggle('scrolled', window.scrollY > 40);
   }, { passive: true });
 
   /* ── Hero animation sequence (v16, locked) ─────────── */
-  function runFlowTypewriter() {
-    var lines = Array.prototype.slice.call(document.querySelectorAll('.tagline-block p'));
-    if (!lines.length) return;
-
-    lines.forEach(function (line) {
-      line.dataset.flowText = line.textContent;
-      line.textContent = '';
-      line.classList.add('flow-type-line');
-    });
-
-    if (reduced) {
-      lines.forEach(function (line) {
-        line.textContent = line.dataset.flowText;
-        line.classList.add('flow-type-complete');
-      });
-      return;
-    }
-
-    var lineIndex = 0;
-    var charDelay = 24;
-    var linePause = 1000;
-
-    function typeLine() {
-      if (lineIndex >= lines.length) return;
-
-      var line = lines[lineIndex];
-      var text = line.dataset.flowText || '';
-      var charIndex = 0;
-      line.classList.add('flow-type-active');
-
-      function typeChar() {
-        if (charIndex >= text.length) {
-          line.classList.remove('flow-type-active');
-          line.classList.add('flow-type-complete');
-          lineIndex += 1;
-          setTimeout(typeLine, linePause);
-          return;
-        }
-
-        line.textContent += text.charAt(charIndex);
-        charIndex += 1;
-        setTimeout(typeChar, charDelay);
-      }
-
-      typeChar();
-    }
-
-    typeLine();
-  }
-
-  function runFlowRetypeToAriel() {
-    if (isMobile || interacted) return;
-
-    var line = document.getElementById('lastLine');
-    var btn = document.getElementById('arielBtn');
-    if (!line || !btn) return;
-
-    var text = line.dataset.flowText || line.textContent;
-    if (!text) return;
-
-    var bRect = btn.getBoundingClientRect();
-    if (bRect.top > window.innerHeight || bRect.top < 0) return;
-
-    line.classList.add('flow-type-active');
-
-    function eraseLine() {
-      if (line.textContent.length === 0) {
-        line.classList.remove('flow-type-active');
-        setTimeout(retypeAboveButton, 1000);
-        return;
-      }
-
-      line.textContent = line.textContent.slice(0, -1);
-      setTimeout(eraseLine, 21);
-    }
-
-    function retypeAboveButton() {
-      var target = document.createElement('div');
-      target.className = 'flow-retype-line flow-type-active';
-      target.setAttribute('aria-hidden', 'true');
-      target.style.left = (bRect.left + bRect.width / 2) + 'px';
-      target.style.top = (bRect.top - 64) + 'px';
-      target.style.transform = 'translateX(-50%)';
-      document.body.appendChild(target);
-
-      var index = 0;
-      function typeNext() {
-        if (index >= text.length) {
-          target.classList.remove('flow-type-active');
-          var removeTargetOnScroll = function () {
-            target.style.transition = 'opacity 0.6s ease';
-            target.style.opacity = '0';
-            setTimeout(function () {
-              if (target.parentNode) target.parentNode.removeChild(target);
-            }, 600);
-            window.removeEventListener('scroll', removeTargetOnScroll);
-          };
-          window.addEventListener('scroll', removeTargetOnScroll, { passive: true });
-          return;
-        }
-
-        target.textContent += text.charAt(index);
-        index += 1;
-        setTimeout(typeNext, 22);
-      }
-
-      typeNext();
-    }
-
-    eraseLine();
-  }
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var isMobile = window.innerWidth < 768;
 
   /* Interacted guard — float/nudge/sonar cancel if user engages before they fire */
   var interacted = false;
@@ -550,11 +410,6 @@
 
   /* 1. FLOAT — clean arc, no bounce */
   setTimeout(function () {
-    if (activeTheme === 'flow') {
-      runFlowRetypeToAriel();
-      return;
-    }
-
     if (isMobile || interacted) return;
     var line = document.getElementById('lastLine');
     var btn  = document.getElementById('arielBtn');
