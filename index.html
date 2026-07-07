@@ -88,8 +88,7 @@
     padding: 0 clamp(2rem,5vw,6rem);
     max-width: 760px;
   }
-  .flow-wordmark,
-  .flow-font-label {
+  .flow-wordmark {
     display: none;
   }
   .tagline-block { display: flex; flex-direction: column; gap: 0; }
@@ -299,7 +298,6 @@
 <div class="hero">
   <img id="heroImage" src="xingchen-yan-lYBDJP9oSEk-unsplash.jpg" alt="Mountain peaks above clouds, photo by Xingchen Yan">
   <div class="flow-wordmark" id="flowWordmark" aria-hidden="true">M  A  N  A  G  E</div>
-  <div class="flow-font-label" id="flowFontLabel" aria-live="polite"></div>
   <div class="hero-content">
     <div class="tagline-block">
       <p>I spent 30 years making technology work.</p>
@@ -391,6 +389,9 @@
   document.getElementById('footer-year').textContent = new Date().getFullYear();
 
   var activeTheme = document.documentElement.getAttribute('data-theme');
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var isMobile = window.innerWidth < 768;
+
   if (activeTheme === 'flow') {
     var heroImage = document.getElementById('heroImage');
     var photoCredit = document.querySelector('.photo-credit');
@@ -402,21 +403,7 @@
       photoCredit.textContent = '';
     }
 
-    var flowFonts = [
-      { label: 'PP Stellar', family: 'FlowPPStellar' },
-      { label: 'Mylodon', family: 'FlowMylodon' },
-      { label: 'Exan (Behance file)', family: 'FlowExan' }
-    ];
-    var flowFontLabel = document.getElementById('flowFontLabel');
-    var flowFontIndex = 0;
-    function applyFlowFont() {
-      var font = flowFonts[flowFontIndex];
-      document.documentElement.style.setProperty('--flow-audition-font', "'" + font.family + "'");
-      if (flowFontLabel) flowFontLabel.textContent = font.label;
-      flowFontIndex = (flowFontIndex + 1) % flowFonts.length;
-    }
-    applyFlowFont();
-    setInterval(applyFlowFont, 10000);
+    runFlowTypewriter();
   }
 
   var nav = document.getElementById('nav');
@@ -425,8 +412,55 @@
   }, { passive: true });
 
   /* ── Hero animation sequence (v16, locked) ─────────── */
-  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var isMobile = window.innerWidth < 768;
+  function runFlowTypewriter() {
+    var lines = Array.prototype.slice.call(document.querySelectorAll('.tagline-block p'));
+    if (!lines.length) return;
+
+    lines.forEach(function (line) {
+      line.dataset.flowText = line.textContent;
+      line.textContent = '';
+      line.classList.add('flow-type-line');
+    });
+
+    if (reduced) {
+      lines.forEach(function (line) {
+        line.textContent = line.dataset.flowText;
+        line.classList.add('flow-type-complete');
+      });
+      return;
+    }
+
+    var lineIndex = 0;
+    var charDelay = 24;
+    var linePause = 1000;
+
+    function typeLine() {
+      if (lineIndex >= lines.length) return;
+
+      var line = lines[lineIndex];
+      var text = line.dataset.flowText || '';
+      var charIndex = 0;
+      line.classList.add('flow-type-active');
+
+      function typeChar() {
+        if (charIndex >= text.length) {
+          line.classList.remove('flow-type-active');
+          line.classList.add('flow-type-complete');
+          lineIndex += 1;
+          setTimeout(typeLine, linePause);
+          return;
+        }
+
+        line.textContent += text.charAt(charIndex);
+        charIndex += 1;
+        setTimeout(typeChar, charDelay);
+      }
+
+      typeChar();
+    }
+
+    typeLine();
+  }
 
   /* Interacted guard — float/nudge/sonar cancel if user engages before they fire */
   var interacted = activeTheme === 'flow';

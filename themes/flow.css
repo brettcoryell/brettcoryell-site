@@ -20,7 +20,6 @@
 }
 
 [data-theme="flow"] {
-  --flow-audition-font: 'FlowPPStellar';
   --color-interactive:        #4ee6bd;
   --color-interactive-hover:  #26c9a5;
   --color-interactive-text:   #031617;
@@ -40,14 +39,15 @@
   --color-chart-label:        #91b4aa;
   --color-chart-grid:         rgba(78, 230, 189, 0.10);
   --color-sonar:              #4ee6bd;
-  --font-display:             'Georgia', 'Times New Roman', serif;
-  --font-body:                'Avenir Next', 'Inter', 'Segoe UI', system-ui, sans-serif;
+  --font-display:             'FlowPPStellar', 'Avenir Next', 'Inter', 'Segoe UI', system-ui, sans-serif;
+  --font-body:                'FlowPPStellar', 'Avenir Next', 'Inter', 'Segoe UI', system-ui, sans-serif;
 }
 
 [data-theme="flow"] body {
   background:
     radial-gradient(circle at 80% 0%, rgba(86, 240, 209, 0.14), transparent 34rem),
     linear-gradient(180deg, #071719 0%, #081c1f 45%, #071719 100%);
+  font-family: 'FlowPPStellar', 'Avenir Next', 'Inter', 'Segoe UI', system-ui, sans-serif;
 }
 
 [data-theme="flow"] .hero img {
@@ -64,62 +64,11 @@
   left: 50%;
   z-index: 1;
   transform: translate(-50%, -50%);
-  font-family: var(--flow-audition-font), 'Avenir Next', 'Inter', 'Segoe UI', system-ui, sans-serif;
+  font-family: 'FlowMylodon', 'Avenir Next', 'Inter', 'Segoe UI', system-ui, sans-serif;
   font-size: clamp(2.1rem, 4.8vw, 4.3rem);
   font-weight: 400;
   letter-spacing: clamp(0.7rem, 2vw, 1.5rem);
   color: rgba(255, 250, 238, 0.90);
-  white-space: nowrap;
-  pointer-events: none;
-}
-
-[data-theme="flow"] .flow-wordmark::before,
-[data-theme="flow"] .flow-wordmark::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 58%;
-  z-index: -1;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-}
-
-[data-theme="flow"] .flow-wordmark::before {
-  width: min(42vw, 32rem);
-  height: 0.16rem;
-  background:
-    linear-gradient(
-      90deg,
-      transparent 0%,
-      rgba(87, 244, 255, 0.18) 30%,
-      rgba(152, 255, 249, 0.88) 54%,
-      rgba(87, 244, 255, 0.22) 76%,
-      transparent 100%
-    );
-  box-shadow:
-    0 0 0.45rem rgba(87, 244, 255, 0.72),
-    0 0 1.2rem rgba(66, 220, 255, 0.42);
-}
-
-[data-theme="flow"] .flow-wordmark::after {
-  width: min(16vw, 11rem);
-  height: 1.1rem;
-  background: radial-gradient(ellipse at center, rgba(180, 255, 250, 0.52) 0%, rgba(87, 244, 255, 0.22) 35%, transparent 72%);
-  filter: blur(0.18rem);
-}
-
-[data-theme="flow"] .flow-font-label {
-  display: block;
-  position: absolute;
-  top: calc(30% + clamp(2.2rem, 5.4vw, 5rem));
-  left: 50%;
-  z-index: 1;
-  transform: translateX(-50%);
-  font-family: 'Avenir Next', 'Inter', 'Segoe UI', system-ui, sans-serif;
-  font-size: 0.72rem;
-  letter-spacing: 0.16em;
-  color: rgba(255, 248, 234, 0.58);
-  text-transform: none;
   white-space: nowrap;
   pointer-events: none;
 }
@@ -150,6 +99,27 @@
   padding-bottom: clamp(5.5rem, 12vh, 7rem);
 }
 
+[data-theme="flow"] .tagline-block p {
+  font-family: 'FlowPPStellar', 'Avenir Next', 'Inter', 'Segoe UI', system-ui, sans-serif;
+  font-style: normal;
+  font-size: clamp(1.15rem, 2.05vw, 1.7rem);
+  letter-spacing: 0.03em;
+  min-height: 1.55em;
+  opacity: 1;
+  animation: none;
+}
+
+[data-theme="flow"] .flow-type-line.flow-type-active::after {
+  content: '';
+  display: inline-block;
+  width: 0.5em;
+  height: 0.95em;
+  margin-left: 0.18em;
+  transform: translateY(0.12em);
+  background: rgba(255, 250, 238, 0.82);
+  box-shadow: 0 0 0.55rem rgba(78, 230, 189, 0.32);
+}
+
 [data-theme="flow"] .nav-name,
 [data-theme="flow"] .nav-links {
   color: var(--color-text-primary);
@@ -157,8 +127,9 @@
 
 [data-theme="flow"] .nav-name,
 [data-theme="flow"] .nav-links {
-  font-family: var(--flow-audition-font), 'Avenir Next', 'Inter', 'Segoe UI', system-ui, sans-serif;
+  font-family: 'FlowMylodon', 'Avenir Next', 'Inter', 'Segoe UI', system-ui, sans-serif;
   font-weight: 400;
+  text-transform: none;
 }
 
 [data-theme="flow"] .nav-links {
@@ -187,6 +158,19 @@
   background: linear-gradient(90deg, rgba(86, 240, 209, 0.16), rgba(255, 155, 71, 0.10));
 }
 
+[data-theme="flow"] .ariel-text,
+[data-theme="flow"] .ariel-cta,
+[data-theme="flow"] .section-label,
+[data-theme="flow"] .project-card-label,
+[data-theme="flow"] .project-card-title,
+[data-theme="flow"] .project-card-desc,
+[data-theme="flow"] .project-card-link,
+[data-theme="flow"] #about p,
+[data-theme="flow"] .footer {
+  font-family: 'FlowPPStellar', 'Avenir Next', 'Inter', 'Segoe UI', system-ui, sans-serif;
+  font-style: normal;
+}
+
 [data-theme="flow"] .ariel-cta {
   box-shadow: 0 0 0 1px rgba(232, 255, 248, 0.10), 0 10px 28px rgba(33, 199, 164, 0.18);
 }
@@ -212,10 +196,6 @@
     top: 25%;
     font-size: 2rem;
     letter-spacing: 0.54rem;
-  }
-
-  [data-theme="flow"] .flow-font-label {
-    top: calc(25% + 2.5rem);
   }
 
   [data-theme="flow"] .hero-content {
