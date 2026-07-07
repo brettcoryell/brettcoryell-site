@@ -33,7 +33,7 @@
   --color-text-on-dark-faint: rgba(255, 248, 234, 0.48);
   --color-border:             rgba(78, 230, 189, 0.20);
   --color-border-accent:      #4ee6bd;
-  --color-accent-warm:        #ffad32;
+  --color-accent-warm:        #e9781c;
   --color-accent-path:        #ff7a45;
   --color-bg-footer:          #031012;
   --color-chart-label:        #91b4aa;
@@ -78,20 +78,20 @@
   position: absolute;
   left: 0;
   right: 0;
-  top: 54%;
-  height: 7rem;
+  top: 54.5%;
+  height: 3.5rem;
   z-index: 1;
   pointer-events: none;
   background:
     linear-gradient(
       180deg,
       transparent 0%,
-      rgba(255, 142, 42, 0.16) 34%,
-      rgba(255, 178, 70, 0.42) 50%,
-      rgba(255, 125, 34, 0.20) 66%,
+      rgba(255, 128, 28, 0.18) 30%,
+      rgba(255, 178, 60, 0.68) 50%,
+      rgba(226, 86, 18, 0.24) 70%,
       transparent 100%
     );
-  filter: blur(0.65rem);
+  filter: blur(0.34rem);
 }
 
 [data-theme="flow"] .hero::after {
@@ -145,14 +145,16 @@
 [data-theme="flow"] .flow-retype-line {
   position: fixed;
   z-index: 125;
-  max-width: min(70vw, 42rem);
+  width: max-content;
+  max-width: none;
   text-align: center;
   font-family: 'FlowPPStellar', 'Avenir Next', 'Inter', 'Segoe UI', system-ui, sans-serif;
-  font-size: clamp(1rem, 1.7vw, 1.35rem);
-  line-height: 1.4;
+  font-size: clamp(1.15rem, 2.05vw, 1.7rem);
+  line-height: 1.55;
   letter-spacing: 0.03em;
   color: #fff8ea;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.56);
+  white-space: nowrap;
   pointer-events: none;
 }
 
@@ -189,7 +191,7 @@
 [data-theme="flow"] .nav.scrolled .nav-links a:hover,
 [data-theme="flow"] .nav.scrolled .nav-name:hover {
   color: var(--color-accent-warm);
-  text-shadow: 0 0 0.65rem rgba(255, 173, 50, 0.42);
+  text-shadow: 0 0 0.55rem rgba(233, 120, 28, 0.42);
 }
 
 [data-theme="flow"] .nav.scrolled {
