@@ -403,11 +403,6 @@
     }
 
     var flowFonts = [
-      { label: 'Horizon', family: 'FlowHorizon' },
-      { label: 'Horizon Outline', family: 'FlowHorizonOutline' },
-      { label: 'Anurati', family: 'FlowAnurati' },
-      { label: 'Ailerons', family: 'FlowAilerons' },
-      { label: 'Elianto', family: 'FlowElianto' },
       { label: 'PP Stellar', family: 'FlowPPStellar' },
       { label: 'Mylodon', family: 'FlowMylodon' },
       { label: 'Exan (Behance file)', family: 'FlowExan' }
@@ -421,7 +416,7 @@
       flowFontIndex = (flowFontIndex + 1) % flowFonts.length;
     }
     applyFlowFont();
-    setInterval(applyFlowFont, 5000);
+    setInterval(applyFlowFont, 10000);
   }
 
   var nav = document.getElementById('nav');

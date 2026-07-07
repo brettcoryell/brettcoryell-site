@@ -2,36 +2,6 @@
 /* Preview with ?theme=flow. Uses existing semantic token names only. */
 
 @font-face {
-  font-family: 'FlowHorizon';
-  src: url('../fonts/flow/horizon.otf') format('opentype');
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'FlowHorizonOutline';
-  src: url('../fonts/flow/horizon-outline.otf') format('opentype');
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'FlowAnurati';
-  src: url('../fonts/flow/anurati-regular.otf') format('opentype');
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'FlowAilerons';
-  src: url('../fonts/flow/ailerons-trial.otf') format('opentype');
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'FlowElianto';
-  src: url('../fonts/flow/elianto-regular.otf') format('opentype');
-  font-display: swap;
-}
-
-@font-face {
   font-family: 'FlowPPStellar';
   src: url('../fonts/flow/ppstellar-light.otf') format('opentype');
   font-display: swap;
@@ -50,7 +20,7 @@
 }
 
 [data-theme="flow"] {
-  --flow-audition-font: 'FlowHorizon';
+  --flow-audition-font: 'FlowPPStellar';
   --color-interactive:        #4ee6bd;
   --color-interactive-hover:  #26c9a5;
   --color-interactive-text:   #031617;
@@ -128,10 +98,10 @@
   background:
     linear-gradient(
       180deg,
-      transparent 54%,
-      rgba(0, 0, 0, 0.08) 61%,
-      rgba(0, 0, 0, 0.42) 76%,
-      rgba(0, 0, 0, 0.88) 100%
+      transparent 55%,
+      rgba(0, 0, 0, 0.04) 61%,
+      rgba(0, 0, 0, 0.50) 76%,
+      rgba(0, 0, 0, 0.98) 100%
     );
 }
 
