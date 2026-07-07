@@ -9,12 +9,6 @@
     var params = new URLSearchParams(window.location.search);
     var theme = params.get('theme');
     document.documentElement.setAttribute('data-theme', theme === 'flow' ? 'flow' : 'default');
-    if (theme === 'flow') {
-      var fontLink = document.createElement('link');
-      fontLink.rel = 'stylesheet';
-      fontLink.href = 'https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600&display=swap';
-      document.head.appendChild(fontLink);
-    }
   })();
 </script>
 <style>
@@ -93,6 +87,10 @@
     display: flex; flex-direction: column; justify-content: center;
     padding: 0 clamp(2rem,5vw,6rem);
     max-width: 760px;
+  }
+  .flow-wordmark,
+  .flow-font-label {
+    display: none;
   }
   .tagline-block { display: flex; flex-direction: column; gap: 0; }
   .tagline-block p {
@@ -300,6 +298,8 @@
 <!-- HERO -->
 <div class="hero">
   <img id="heroImage" src="xingchen-yan-lYBDJP9oSEk-unsplash.jpg" alt="Mountain peaks above clouds, photo by Xingchen Yan">
+  <div class="flow-wordmark" id="flowWordmark" aria-hidden="true">M A N A G E</div>
+  <div class="flow-font-label" id="flowFontLabel" aria-live="polite"></div>
   <div class="hero-content">
     <div class="tagline-block">
       <p>I spent 30 years making technology work.</p>
@@ -401,6 +401,27 @@
     if (photoCredit) {
       photoCredit.textContent = '';
     }
+
+    var flowFonts = [
+      { label: 'Horizon', family: 'FlowHorizon' },
+      { label: 'Horizon Outline', family: 'FlowHorizonOutline' },
+      { label: 'Anurati', family: 'FlowAnurati' },
+      { label: 'Ailerons', family: 'FlowAilerons' },
+      { label: 'Elianto', family: 'FlowElianto' },
+      { label: 'PP Stellar', family: 'FlowPPStellar' },
+      { label: 'Mylodon', family: 'FlowMylodon' },
+      { label: 'Exan (Behance file)', family: 'FlowExan' }
+    ];
+    var flowFontLabel = document.getElementById('flowFontLabel');
+    var flowFontIndex = 0;
+    function applyFlowFont() {
+      var font = flowFonts[flowFontIndex];
+      document.documentElement.style.setProperty('--flow-audition-font', "'" + font.family + "'");
+      if (flowFontLabel) flowFontLabel.textContent = font.label;
+      flowFontIndex = (flowFontIndex + 1) % flowFonts.length;
+    }
+    applyFlowFont();
+    setInterval(applyFlowFont, 5000);
   }
 
   var nav = document.getElementById('nav');
@@ -413,7 +434,7 @@
   var isMobile = window.innerWidth < 768;
 
   /* Interacted guard — float/nudge/sonar cancel if user engages before they fire */
-  var interacted = false;
+  var interacted = activeTheme === 'flow';
   function markInteracted() { interacted = true; }
   window.addEventListener('scroll', markInteracted, { passive: true, once: true });
   window.addEventListener('click', markInteracted, { once: true });

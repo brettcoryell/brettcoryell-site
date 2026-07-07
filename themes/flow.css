@@ -1,7 +1,56 @@
 /* flow.css — opt-in preview theme inspired by aurora/space concept art */
 /* Preview with ?theme=flow. Uses existing semantic token names only. */
 
+@font-face {
+  font-family: 'FlowHorizon';
+  src: url('../fonts/flow/horizon.otf') format('opentype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FlowHorizonOutline';
+  src: url('../fonts/flow/horizon-outline.otf') format('opentype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FlowAnurati';
+  src: url('../fonts/flow/anurati-regular.otf') format('opentype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FlowAilerons';
+  src: url('../fonts/flow/ailerons-trial.otf') format('opentype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FlowElianto';
+  src: url('../fonts/flow/elianto-regular.otf') format('opentype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FlowPPStellar';
+  src: url('../fonts/flow/ppstellar-light.otf') format('opentype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FlowMylodon';
+  src: url('../fonts/flow/mylodon-light.otf') format('opentype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FlowExan';
+  src: url('../fonts/flow/behance.ttf') format('truetype');
+  font-display: swap;
+}
+
 [data-theme="flow"] {
+  --flow-audition-font: 'FlowHorizon';
   --color-interactive:        #4ee6bd;
   --color-interactive-hover:  #26c9a5;
   --color-interactive-text:   #031617;
@@ -38,18 +87,34 @@
   z-index: 0;
 }
 
-[data-theme="flow"] .hero::before {
-  content: 'M A N A G E';
+[data-theme="flow"] .flow-wordmark {
+  display: block;
   position: absolute;
   top: 30%;
   left: 50%;
   z-index: 1;
   transform: translate(-50%, -50%);
-  font-family: 'Orbitron', 'Rajdhani', 'Avenir Next', 'Inter', 'Segoe UI', system-ui, sans-serif;
-  font-size: clamp(1.05rem, 2.4vw, 2.15rem);
-  font-weight: 500;
-  letter-spacing: clamp(0.52rem, 1.7vw, 1.25rem);
+  font-family: var(--flow-audition-font), 'Avenir Next', 'Inter', 'Segoe UI', system-ui, sans-serif;
+  font-size: clamp(2.1rem, 4.8vw, 4.3rem);
+  font-weight: 400;
+  letter-spacing: clamp(0.7rem, 2vw, 1.5rem);
   color: rgba(255, 248, 234, 0.72);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+[data-theme="flow"] .flow-font-label {
+  display: block;
+  position: absolute;
+  top: calc(30% + clamp(2.2rem, 5.4vw, 5rem));
+  left: 50%;
+  z-index: 1;
+  transform: translateX(-50%);
+  font-family: 'Avenir Next', 'Inter', 'Segoe UI', system-ui, sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  color: rgba(255, 248, 234, 0.58);
+  text-transform: none;
   white-space: nowrap;
   pointer-events: none;
 }
@@ -63,9 +128,10 @@
   background:
     linear-gradient(
       180deg,
-      transparent 44%,
-      rgba(0, 0, 0, 0.42) 62%,
-      rgba(0, 0, 0, 0.72) 100%
+      transparent 54%,
+      rgba(0, 0, 0, 0.08) 61%,
+      rgba(0, 0, 0, 0.42) 76%,
+      rgba(0, 0, 0, 0.88) 100%
     );
 }
 
@@ -86,8 +152,8 @@
 
 [data-theme="flow"] .nav-name,
 [data-theme="flow"] .nav-links {
-  font-family: 'Orbitron', 'Rajdhani', 'Avenir Next', 'Inter', 'Segoe UI', system-ui, sans-serif;
-  font-weight: 600;
+  font-family: var(--flow-audition-font), 'Avenir Next', 'Inter', 'Segoe UI', system-ui, sans-serif;
+  font-weight: 400;
 }
 
 [data-theme="flow"] .nav-links {
@@ -137,9 +203,14 @@
     height: 560px;
   }
 
-  [data-theme="flow"] .hero::before {
+  [data-theme="flow"] .flow-wordmark {
     top: 25%;
-    letter-spacing: 0.42rem;
+    font-size: 2rem;
+    letter-spacing: 0.54rem;
+  }
+
+  [data-theme="flow"] .flow-font-label {
+    top: calc(25% + 2.5rem);
   }
 
   [data-theme="flow"] .hero-content {
