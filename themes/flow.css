@@ -68,9 +68,44 @@
   font-size: clamp(2.1rem, 4.8vw, 4.3rem);
   font-weight: 400;
   letter-spacing: clamp(0.7rem, 2vw, 1.5rem);
-  color: rgba(255, 248, 234, 0.72);
+  color: rgba(255, 250, 238, 0.90);
   white-space: nowrap;
   pointer-events: none;
+}
+
+[data-theme="flow"] .flow-wordmark::before,
+[data-theme="flow"] .flow-wordmark::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 58%;
+  z-index: -1;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+[data-theme="flow"] .flow-wordmark::before {
+  width: min(42vw, 32rem);
+  height: 0.16rem;
+  background:
+    linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(87, 244, 255, 0.18) 30%,
+      rgba(152, 255, 249, 0.88) 54%,
+      rgba(87, 244, 255, 0.22) 76%,
+      transparent 100%
+    );
+  box-shadow:
+    0 0 0.45rem rgba(87, 244, 255, 0.72),
+    0 0 1.2rem rgba(66, 220, 255, 0.42);
+}
+
+[data-theme="flow"] .flow-wordmark::after {
+  width: min(16vw, 11rem);
+  height: 1.1rem;
+  background: radial-gradient(ellipse at center, rgba(180, 255, 250, 0.52) 0%, rgba(87, 244, 255, 0.22) 35%, transparent 72%);
+  filter: blur(0.18rem);
 }
 
 [data-theme="flow"] .flow-font-label {
