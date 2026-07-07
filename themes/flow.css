@@ -156,28 +156,20 @@
 [data-theme="flow"] .nav-links {
   font-family: 'FlowMylodon', 'Avenir Next', 'Inter', 'Segoe UI', system-ui, sans-serif;
   font-weight: 400;
+  letter-spacing: 0.08em;
   text-transform: none;
-  text-shadow:
-    0.03em 0 currentColor,
-    -0.03em 0 currentColor,
-    0 0.03em currentColor,
-    0 0 0.45rem rgba(255, 248, 234, 0.18);
+  text-shadow: none;
 }
 
 [data-theme="flow"] .nav-links {
   font-size: 0.78rem;
-  letter-spacing: 0.04em;
 }
 
 [data-theme="flow"] .nav-links a:hover,
 [data-theme="flow"] .nav.scrolled .nav-links a:hover,
 [data-theme="flow"] .nav.scrolled .nav-name:hover {
   color: var(--color-accent-warm);
-  text-shadow:
-    0.03em 0 currentColor,
-    -0.03em 0 currentColor,
-    0 0.03em currentColor,
-    0 0 0.55rem rgba(233, 120, 28, 0.45);
+  text-shadow: none;
 }
 
 [data-theme="flow"] .nav.scrolled {

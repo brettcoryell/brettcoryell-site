@@ -480,12 +480,12 @@
     function eraseLine() {
       if (line.textContent.length === 0) {
         line.classList.remove('flow-type-active');
-        retypeAboveButton();
+        setTimeout(retypeAboveButton, 1000);
         return;
       }
 
       line.textContent = line.textContent.slice(0, -1);
-      setTimeout(eraseLine, 18);
+      setTimeout(eraseLine, 21);
     }
 
     function retypeAboveButton() {
