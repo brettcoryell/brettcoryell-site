@@ -21,8 +21,8 @@
 
 [data-theme="flow"] {
   --color-interactive:        #4ee6bd;
-  --color-interactive-hover:  #26c9a5;
-  --color-interactive-text:   #031617;
+  --color-interactive-hover:  #32e0bd;
+  --color-interactive-text:   #010b0c;
   --color-bg-page:            #061416;
   --color-bg-alt:             #071c1d;
   --color-bg-raised:          #132d29;
@@ -33,21 +33,21 @@
   --color-text-on-dark-faint: rgba(255, 248, 234, 0.48);
   --color-border:             rgba(78, 230, 189, 0.20);
   --color-border-accent:      #4ee6bd;
-  --color-accent-warm:        #f29a3f;
+  --color-accent-warm:        #ffad32;
   --color-accent-path:        #ff7a45;
   --color-bg-footer:          #031012;
   --color-chart-label:        #91b4aa;
   --color-chart-grid:         rgba(78, 230, 189, 0.10);
   --color-sonar:              #4ee6bd;
-  --font-display:             'FlowPPStellar', 'Avenir Next', 'Inter', 'Segoe UI', system-ui, sans-serif;
-  --font-body:                'FlowPPStellar', 'Avenir Next', 'Inter', 'Segoe UI', system-ui, sans-serif;
+  --font-display:             'Avenir Next', 'Inter', 'Segoe UI', system-ui, sans-serif;
+  --font-body:                'Avenir Next', 'Inter', 'Segoe UI', system-ui, sans-serif;
 }
 
 [data-theme="flow"] body {
   background:
     radial-gradient(circle at 80% 0%, rgba(86, 240, 209, 0.14), transparent 34rem),
     linear-gradient(180deg, #071719 0%, #081c1f 45%, #071719 100%);
-  font-family: 'FlowPPStellar', 'Avenir Next', 'Inter', 'Segoe UI', system-ui, sans-serif;
+  font-family: 'Avenir Next', 'Inter', 'Segoe UI', system-ui, sans-serif;
 }
 
 [data-theme="flow"] .hero img {
@@ -62,7 +62,7 @@
   position: absolute;
   top: 30%;
   left: 50%;
-  z-index: 1;
+  z-index: 2;
   transform: translate(-50%, -50%);
   font-family: 'FlowMylodon', 'Avenir Next', 'Inter', 'Segoe UI', system-ui, sans-serif;
   font-size: clamp(2.1rem, 4.8vw, 4.3rem);
@@ -71,6 +71,27 @@
   color: rgba(255, 250, 238, 0.90);
   white-space: nowrap;
   pointer-events: none;
+}
+
+[data-theme="flow"] .hero::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 54%;
+  height: 7rem;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      180deg,
+      transparent 0%,
+      rgba(255, 142, 42, 0.16) 34%,
+      rgba(255, 178, 70, 0.42) 50%,
+      rgba(255, 125, 34, 0.20) 66%,
+      transparent 100%
+    );
+  filter: blur(0.65rem);
 }
 
 [data-theme="flow"] .hero::after {
@@ -82,16 +103,17 @@
   background:
     linear-gradient(
       180deg,
-      transparent 55%,
-      rgba(0, 0, 0, 0.04) 61%,
-      rgba(0, 0, 0, 0.50) 76%,
+      transparent 50%,
+      rgba(0, 0, 0, 0.08) 57%,
+      rgba(0, 0, 0, 0.40) 66%,
+      rgba(0, 0, 0, 0.72) 82%,
       rgba(0, 0, 0, 0.98) 100%
     );
 }
 
 [data-theme="flow"] .hero-content,
 [data-theme="flow"] .photo-credit {
-  z-index: 2;
+  z-index: 3;
 }
 
 [data-theme="flow"] .hero-content {
@@ -120,6 +142,30 @@
   box-shadow: 0 0 0.55rem rgba(78, 230, 189, 0.32);
 }
 
+[data-theme="flow"] .flow-retype-line {
+  position: fixed;
+  z-index: 125;
+  max-width: min(70vw, 42rem);
+  text-align: center;
+  font-family: 'FlowPPStellar', 'Avenir Next', 'Inter', 'Segoe UI', system-ui, sans-serif;
+  font-size: clamp(1rem, 1.7vw, 1.35rem);
+  line-height: 1.4;
+  letter-spacing: 0.03em;
+  color: #fff8ea;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.56);
+  pointer-events: none;
+}
+
+[data-theme="flow"] .flow-retype-line.flow-type-active::after {
+  content: '';
+  display: inline-block;
+  width: 0.46em;
+  height: 0.9em;
+  margin-left: 0.16em;
+  transform: translateY(0.12em);
+  background: rgba(255, 250, 238, 0.82);
+}
+
 [data-theme="flow"] .nav-name,
 [data-theme="flow"] .nav-links {
   color: var(--color-text-primary);
@@ -130,6 +176,8 @@
   font-family: 'FlowMylodon', 'Avenir Next', 'Inter', 'Segoe UI', system-ui, sans-serif;
   font-weight: 400;
   text-transform: none;
+  -webkit-text-stroke: 0.22px currentColor;
+  text-shadow: 0 0 0.45rem rgba(255, 248, 234, 0.16);
 }
 
 [data-theme="flow"] .nav-links {
@@ -141,6 +189,7 @@
 [data-theme="flow"] .nav.scrolled .nav-links a:hover,
 [data-theme="flow"] .nav.scrolled .nav-name:hover {
   color: var(--color-accent-warm);
+  text-shadow: 0 0 0.65rem rgba(255, 173, 50, 0.42);
 }
 
 [data-theme="flow"] .nav.scrolled {
@@ -167,12 +216,20 @@
 [data-theme="flow"] .project-card-link,
 [data-theme="flow"] #about p,
 [data-theme="flow"] .footer {
-  font-family: 'FlowPPStellar', 'Avenir Next', 'Inter', 'Segoe UI', system-ui, sans-serif;
+  font-family: 'Avenir Next', 'Inter', 'Segoe UI', system-ui, sans-serif;
   font-style: normal;
 }
 
 [data-theme="flow"] .ariel-cta {
+  color: #010b0c;
+  background: #32d7b4;
   box-shadow: 0 0 0 1px rgba(232, 255, 248, 0.10), 0 10px 28px rgba(33, 199, 164, 0.18);
+}
+
+[data-theme="flow"] .project-card-desc,
+[data-theme="flow"] #about p {
+  font-size: 1rem;
+  line-height: 1.68;
 }
 
 [data-theme="flow"] .project-card {

@@ -462,8 +462,61 @@
     typeLine();
   }
 
+  function runFlowRetypeToAriel() {
+    if (isMobile || interacted) return;
+
+    var line = document.getElementById('lastLine');
+    var btn = document.getElementById('arielBtn');
+    if (!line || !btn) return;
+
+    var text = line.dataset.flowText || line.textContent;
+    if (!text) return;
+
+    var bRect = btn.getBoundingClientRect();
+    if (bRect.top > window.innerHeight || bRect.top < 0) return;
+
+    line.classList.add('flow-type-active');
+
+    function eraseLine() {
+      if (line.textContent.length === 0) {
+        line.classList.remove('flow-type-active');
+        retypeAboveButton();
+        return;
+      }
+
+      line.textContent = line.textContent.slice(0, -1);
+      setTimeout(eraseLine, 18);
+    }
+
+    function retypeAboveButton() {
+      var target = document.createElement('div');
+      target.className = 'flow-retype-line flow-type-active';
+      target.setAttribute('aria-hidden', 'true');
+      target.style.left = (bRect.left + bRect.width / 2) + 'px';
+      target.style.top = (bRect.top - 46) + 'px';
+      target.style.transform = 'translateX(-50%)';
+      document.body.appendChild(target);
+
+      var index = 0;
+      function typeNext() {
+        if (index >= text.length) {
+          target.classList.remove('flow-type-active');
+          return;
+        }
+
+        target.textContent += text.charAt(index);
+        index += 1;
+        setTimeout(typeNext, 22);
+      }
+
+      typeNext();
+    }
+
+    eraseLine();
+  }
+
   /* Interacted guard — float/nudge/sonar cancel if user engages before they fire */
-  var interacted = activeTheme === 'flow';
+  var interacted = false;
   function markInteracted() { interacted = true; }
   window.addEventListener('scroll', markInteracted, { passive: true, once: true });
   window.addEventListener('click', markInteracted, { once: true });
@@ -488,6 +541,11 @@
 
   /* 1. FLOAT — clean arc, no bounce */
   setTimeout(function () {
+    if (activeTheme === 'flow') {
+      runFlowRetypeToAriel();
+      return;
+    }
+
     if (isMobile || interacted) return;
     var line = document.getElementById('lastLine');
     var btn  = document.getElementById('arielBtn');
