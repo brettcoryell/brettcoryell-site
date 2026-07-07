@@ -501,6 +501,15 @@
       function typeNext() {
         if (index >= text.length) {
           target.classList.remove('flow-type-active');
+          var removeTargetOnScroll = function () {
+            target.style.transition = 'opacity 0.6s ease';
+            target.style.opacity = '0';
+            setTimeout(function () {
+              if (target.parentNode) target.parentNode.removeChild(target);
+            }, 600);
+            window.removeEventListener('scroll', removeTargetOnScroll);
+          };
+          window.addEventListener('scroll', removeTargetOnScroll, { passive: true });
           return;
         }
 
