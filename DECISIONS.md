@@ -24,7 +24,7 @@ Do **not** use `vercel domains add` — that attempts to take over nameservers f
 
 ## Live Subdomains
 
-All four are live and should not be repointed without Brett's explicit instruction:
+These are live and should not be repointed without Brett's explicit instruction:
 
 | Subdomain | App |
 |---|---|
@@ -32,8 +32,9 @@ All four are live and should not be repointed without Brett's explicit instructi
 | `msm.brettcoryell.com` | market-signal-monitor |
 | `tokenburn.brettcoryell.com` | token-burn |
 | `polaris.brettcoryell.com` | career-router |
+| `magellan.brettcoryell.com` | magellan (formerly career-explorer) — Vercel deployment protection (SSO) is intentionally left ON, per Brett's 2026-07-14 decision; the homepage card links here but visitors hit a Vercel login wall until Brett turns it off |
 
-DNS: four CNAMEs at Hover pointing to `cname.vercel-dns.com`.
+DNS: resolves via a wildcard/shared A record at Hover (`76.76.21.21`) rather than a dedicated CNAME per subdomain — confirmed 2026-07-14 when `magellan.brettcoryell.com` resolved and issued a cert immediately via `vercel alias set`, with no new Hover record added.
 
 ---
 
