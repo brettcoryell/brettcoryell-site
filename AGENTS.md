@@ -55,3 +55,11 @@ Run `hostname` to identify yourself. Map to structural `machine` value:
 - Preserve the existing visual tone and theme structure. If borrowing dashboard tokens or theme primitives, keep site-level tokens separate from app-specific `--tb-*` and `--msm-*` tokens.
 - Avoid introducing a build system unless Brett explicitly asks for one.
 - The site is deployed through Vercel; verify `vercel.json` behavior before changing routing or static assets.
+
+## Networked Git Operations
+
+For local AI repositories, Codex should not attempt networked Git commands inside the sandbox first. Commands such as `git push`, `git pull --ff-only`, `git fetch`, and `git ls-remote` require network access, so use `require_escalated` on the first attempt with a narrow prefix rule when useful.
+
+Do not retry a failed sandboxed Git network command unless the first failure was not network/DNS/remote-access related.
+
+When closing repo work, if a push is needed, run `git push` with escalation on the first try. Brett has approved this pattern for local AI repo handoffs.
